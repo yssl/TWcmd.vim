@@ -2,6 +2,18 @@
 
 TWCommand is a set of useful commands for moving & managing a tab or window in vim.
 
+- Move a tab  
+![tmv_opt](https://f.cloud.github.com/assets/5915359/2292424/ee3f5c92-a058-11e3-9014-db07bd4dc9dd.gif)
+
+- Move a window  
+![wmv_opt](https://f.cloud.github.com/assets/5915359/2292428/f63c2d94-a058-11e3-9c8a-57054a14a333.gif)
+
+- Move a window between tabs  
+![wmvt_opt](https://f.cloud.github.com/assets/5915359/2292433/fbd08fb6-a058-11e3-8978-c180054a0333.gif)
+
+- Close a window or tab, then move focus to previously focused one  
+![close_opt](https://f.cloud.github.com/assets/5915359/2292436/ffa958f2-a058-11e3-96ac-8be871d8e39f.gif)
+
 ## Usage
 In vim normal mode, type the following command and press `<Enter>`.  
 **:TWCommand {cmd} {arg}**  
