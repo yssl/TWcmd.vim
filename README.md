@@ -36,13 +36,13 @@ The descriptions for {cmd} and {arg} are given as follows:
 
 {cmd}   | description 
 ---     | ---
-tcm     | **t**ab **c**o<b>m</b>mand for cursor moving and managing
-tmv     | **t**ab **m**o<b>v</b>ing command
-wcm     | **w**indow **c**o<b>m</b>mand for cursor moving and managing
-wmv     | **w**indow **m**o<b>v</b>ing command
-wmvt    | **w**indow **m**o<b>v</b>ing command between **t**abs
+tcm     | <b>t</b>ab <b>c</b>o<b>m</b>mand for cursor moving and managing
+tmv     | <b>t</b>ab <b>m</b>o<b>v</b>ing command
+wcm     | <b>w</b>indow <b>c</b>o<b>m</b>mand for cursor moving and managing
+wmv     | <b>w</b>indow <b>m</b>o<b>v</b>ing command
+wmvt    | <b>w</b>indow <b>m</b>o<b>v</b>ing command between <b>t</b>abs
 
-### {arg} for tcm (tab command for cursor moving and managing)
+### {arg} for tcm - tab command for cursor moving and managing
 
 {arg} | description
 ---   | ---
@@ -57,7 +57,7 @@ q     | Close current tab page and move focus to previously focused one.
 n     | Open a new tab page with an empty window, after the current tab page.
 o     | Close all other tab pages.
 
-### {arg} for tmv (tab moving command)
+### {arg} for tmv - tab moving command
 
 {arg} | description
 ---   | ---
@@ -67,7 +67,7 @@ p     | Move current tab to location of previously focused tab.
 
 and all other arguments used with `tcm` subcommand that moves a cursor such as w, W, t, b.
 
-### {arg} for wcm (window command for cursor moving and managing)
+### {arg} for wcm - window command for cursor moving and managing
 
 {arg} | description
 ---   | ---
@@ -76,7 +76,7 @@ m     | Toggle maximizing current window.
 
 and all other arguments used in `:wincmd`.
 
-### {arg} for wmv (window moving command)
+### {arg} for wmv - window moving command
 
 {arg} | description
 ---   | ---
@@ -88,7 +88,7 @@ p     | Move current window to location of previously focused window.
 
 and all other arguments used in `:wincmd` that moves a cursor such as w, W, t, b.
 
-### {arg} for wmvt (window moving command between tabs)
+### {arg} for wmvt - window moving command between tabs
 
 {arg} | description
 ---   | ---
