@@ -3,6 +3,14 @@
 " Author:       yssl <http://github.com/yssl>
 " License:      
 
+""""""""""""""""""""""""""""""""""""""""
+" script variables
+if !exists('s:twhistory')
+	let s:twhistory = []
+endif
+
+""""""""""""""""""""""""""""""""""""""""
+" interface
 fun! TWCommand#TWCommand(cmd, arg)
 	if a:cmd==#'tcm'
 		call s:tcm(a:arg)
@@ -15,6 +23,90 @@ fun! TWCommand#TWCommand(cmd, arg)
 	elseif a:cmd==#'wmvt'
 		call s:wmvt(a:arg)
 	endif
+endfun
+
+fun! TWCommand#PushHistory(tabnr, winnr)
+	if len(s:twhistory)>0
+		let [lasttabnr, lastwinnr] = s:twhistory[-1]
+		if lasttabnr==a:tabnr && lastwinnr==a:winnr
+			return
+		endif
+	endif
+
+	call add(s:twhistory, [a:tabnr,a:winnr])
+	if len(s:twhistory) > g:twcommand_maxhistory
+		unlet s:twhistory[0]
+	endif
+
+	"echo 'push' [a:tabnr,a:winnr]
+	"echo s:twhistory
+endfun
+
+fun! TWCommand#PrintHistory()
+	echo s:twhistory
+endfun
+
+""""""""""""""""""""""""""""""""""""""""
+" common functions
+fun! s:PopHistory()
+	let tw = s:twhistory[-1]
+	unlet s:twhistory[-1]
+	"echo 'pop' tw
+	"echo s:twhistory
+	return tw
+endfun
+
+fun! s:JumpToTabWin(tabnr, winnr)
+	let g:twcommand_push = 0
+	call s:JumpToTab(a:tabnr)
+	call s:JumpToWin(a:winnr)
+	let g:twcommand_push = 1
+endfun
+
+fun! s:RemoveWinFromHistory(basetabnr, closewinnr)
+	let i = 0
+	while i < len(s:twhistory)
+		let tabnr = s:twhistory[i][0]
+		let winnr = s:twhistory[i][1]
+		if tabnr==a:basetabnr
+			if winnr==a:closewinnr
+				unlet s:twhistory[i]
+				continue	|" do not increase i
+			elseif winnr>a:closewinnr
+				let s:twhistory[i][1] = winnr-1
+			endif
+		endif
+		let i = i+1
+	endwhile	
+endfun
+
+fun! s:RemoveTabFromHistory(closetabnr)
+	let i = 0
+	while i < len(s:twhistory)
+		let tabnr = s:twhistory[i][0]
+		if tabnr==a:closetabnr
+			unlet s:twhistory[i]
+			continue	|" do not increase i
+		elseif tabnr>a:closetabnr
+			let s:twhistory[i][0] = tabnr-1
+		endif
+		let i = i+1
+	endwhile	
+endfun
+
+fun! s:CleanDuplicatedHistory()
+	if len(s:twhistory)<2
+		return
+	endif
+
+	let i = 0
+	while i < len(s:twhistory)-1
+		if s:twhistory[i][0]==s:twhistory[i+1][0] && s:twhistory[i][1]==s:twhistory[i+1][1]
+			unlet s:twhistory[i]
+		else
+			let i = i+1
+		endif
+	endwhile
 endfun
 
 """"""""""""""""""""""""""""""""""""""""
@@ -58,20 +150,46 @@ fun! s:RightTab()
 endfun
 
 fun! s:PrevTab()
-	call s:JumpToTab(g:twcommand_prevtabnr)
+	"call s:JumpToTab(g:twcommand_prevtabnr)
 endfun
 
 fun! s:CloseTab()
-	let prevtabnr = g:twcommand_prevtabnr
-	if prevtabnr > tabpagenr()
-		let prevtabnr = prevtabnr - 1
-	endif
+	"let prevtabnr = g:twcommand_prevtabnr
+	"if prevtabnr > tabpagenr()
+		"let prevtabnr = prevtabnr - 1
+	"endif
 
+	"tabclose
+
+	"if g:twcommand_restore_prevfocus==1
+		"call s:JumpToTab(prevtabnr)
+	"endif
+	
+	"echo 'before s:CloseTab()' s:twhistory
+	
+	let closingtabnr = tabpagenr()
+
+	let beforetabcount = tabpagenr('$')
 	tabclose
+	let aftertabcount = tabpagenr('$')
+	"echo 'after tabclose' s:twhistory
 
-	if g:twcommand_restore_prevfocus==1
-		call s:JumpToTab(prevtabnr)
+	"when tab closed
+	if beforetabcount != aftertabcount 
+		"echo 'tab closed' closingtabnr 
+		call s:RemoveTabFromHistory(closingtabnr)
+		"echo 'after s:RemoveTabFromHistory' s:twhistory
+		call s:CleanDuplicatedHistory()
+		"echo 'after s:CleanDuplicatedHistory' s:twhistory
+		let [prevtabnr, prevwinnr] = s:PopHistory()
+		"echo 'popped' prevtabnr prevwinnr
+		"echo 'after s:PopHistory' s:twhistory
+		if g:twcommand_restore_prevfocus==1
+			call s:JumpToTabWin(prevtabnr, prevwinnr)
+		endif
 	endif
+
+	"echo 'after s:CloseTab()' s:twhistory
 endfun
 
 fun! s:JumpToTab(tabnum)
@@ -122,16 +240,58 @@ fun! s:wcm(arg)
 endfun
 
 fun! s:CloseWin()
-	let prevwinnr = g:twcommand_prevwinnr
-	if prevwinnr > winnr()
-		let prevwinnr = prevwinnr - 1
-	endif
+	"let prevwinnr = g:twcommand_prevwinnr
+	"if prevwinnr > winnr()
+		"let prevwinnr = prevwinnr - 1
+	"endif
 
+	"quit
+
+	"if g:twcommand_restore_prevfocus==1
+		"call s:JumpToWin(prevwinnr)
+	"endif
+	
+	"echo 'before s:CloseWin()' s:twhistory
+	
+	let closingtabnr = tabpagenr()
+	let closingwinnr = winnr()
+
+	let beforetabcount = tabpagenr('$')
+	let beforewincount = winnr('$')
 	quit
+	let aftertabcount = tabpagenr('$')
+	let afterwincount = winnr('$')
+	"echo 'after quit' s:twhistory
 
-	if g:twcommand_restore_prevfocus==1
-		call s:JumpToWin(prevwinnr)
+	"when tab closed
+	if beforetabcount != aftertabcount 
+		"echo 'tab closed' closingtabnr
+		call s:RemoveTabFromHistory(closingtabnr)
+		"echo 'after s:RemoveTabFromHistory' s:twhistory
+		call s:CleanDuplicatedHistory()
+		"echo 'after s:CleanDuplicatedHistory' s:twhistory
+		let [prevtabnr, prevwinnr] = s:PopHistory()
+		"echo 'popped' prevtabnr prevwinnr
+		"echo 'after s:PopHistory' s:twhistory
+		if g:twcommand_restore_prevfocus==1
+			call s:JumpToTabWin(prevtabnr, prevwinnr)
+		endif
+	"when win closed
+	elseif beforewincount != afterwincount 
+		"echo 'win closed' closingtabnr closingwinnr
+		call s:RemoveWinFromHistory(closingtabnr, closingwinnr)
+		"echo 'after s:RemoveWinFromHistory' s:twhistory
+		call s:CleanDuplicatedHistory()
+		"echo 'after s:CleanDuplicatedHistory' s:twhistory
+		let [prevtabnr, prevwinnr] = s:PopHistory()
+		"echo 'popped' prevtabnr prevwinnr
+		"echo 'after s:PopHistory' s:twhistory
+		if g:twcommand_restore_prevfocus==1
+			call s:JumpToTabWin(prevtabnr, prevwinnr)
+		endif
 	endif
+
+	"echo 'after s:CloseWin()' s:twhistory
 endfun
 
 fun! s:JumpToWin(winnum)
