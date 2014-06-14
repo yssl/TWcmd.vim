@@ -154,19 +154,7 @@ fun! s:PrevTab()
 endfun
 
 fun! s:CloseTab()
-	"let prevtabnr = g:twcommand_prevtabnr
-	"if prevtabnr > tabpagenr()
-		"let prevtabnr = prevtabnr - 1
-	"endif
-
-	"tabclose
-
-	"if g:twcommand_restore_prevfocus==1
-		"call s:JumpToTab(prevtabnr)
-	"endif
-	
 	"echo 'before s:CloseTab()' s:twhistory
-	
 	let closingtabnr = tabpagenr()
 
 	let beforetabcount = tabpagenr('$')
@@ -188,7 +176,6 @@ fun! s:CloseTab()
 			call s:JumpToTabWin(prevtabnr, prevwinnr)
 		endif
 	endif
-
 	"echo 'after s:CloseTab()' s:twhistory
 endfun
 
@@ -240,19 +227,7 @@ fun! s:wcm(arg)
 endfun
 
 fun! s:CloseWin()
-	"let prevwinnr = g:twcommand_prevwinnr
-	"if prevwinnr > winnr()
-		"let prevwinnr = prevwinnr - 1
-	"endif
-
-	"quit
-
-	"if g:twcommand_restore_prevfocus==1
-		"call s:JumpToWin(prevwinnr)
-	"endif
-	
 	"echo 'before s:CloseWin()' s:twhistory
-	
 	let closingtabnr = tabpagenr()
 	let closingwinnr = winnr()
 
@@ -290,7 +265,6 @@ fun! s:CloseWin()
 			call s:JumpToTabWin(prevtabnr, prevwinnr)
 		endif
 	endif
-
 	"echo 'after s:CloseWin()' s:twhistory
 endfun
 
