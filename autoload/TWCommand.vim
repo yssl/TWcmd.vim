@@ -150,7 +150,18 @@ fun! s:RightTab()
 endfun
 
 fun! s:PrevTab()
-	"call s:JumpToTab(g:twcommand_prevtabnr)
+	let curtabnr = tabpagenr()
+	let prevtabnr = curtabnr
+	let i = -1
+	while i > -len(s:twhistory)-1
+		let tabnr = s:twhistory[i][0]
+		if tabnr!=curtabnr
+			let prevtabnr=tabnr
+			break
+		endif
+		let i = i-1
+	endwhile	
+	call s:JumpToTab(prevtabnr)
 endfun
 
 fun! s:CloseTab()
