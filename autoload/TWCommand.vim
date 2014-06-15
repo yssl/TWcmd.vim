@@ -37,7 +37,6 @@ fun! TWCommand#PushHistory(tabnr, winnr)
 	if len(s:twhistory) > g:twcommand_maxhistory
 		unlet s:twhistory[0]
 	endif
-
 	"echo 'push' [a:tabnr,a:winnr]
 	"echo s:twhistory
 endfun
@@ -49,11 +48,15 @@ endfun
 """"""""""""""""""""""""""""""""""""""""
 " common functions
 fun! s:PopHistory()
-	let tw = s:twhistory[-1]
-	unlet s:twhistory[-1]
-	"echo 'pop' tw
-	"echo s:twhistory
-	return tw
+	if len(s:twhistory) > 1
+		let tw = s:twhistory[-1]
+		unlet s:twhistory[-1]
+		"echo 'pop' tw
+		"echo s:twhistory
+		return tw
+	else
+		return [-1,-1]
+	endif
 endfun
 
 fun! s:JumpToTabWin(tabnr, winnr)
@@ -183,7 +186,7 @@ fun! s:CloseTab()
 		let [prevtabnr, prevwinnr] = s:PopHistory()
 		"echo 'popped' prevtabnr prevwinnr
 		"echo 'after s:PopHistory' s:twhistory
-		if g:twcommand_restore_prevfocus==1
+		if g:twcommand_restore_prevfocus==1 && prevtabnr!=-1
 			call s:JumpToTabWin(prevtabnr, prevwinnr)
 		endif
 	endif
@@ -259,7 +262,7 @@ fun! s:CloseWin()
 		let [prevtabnr, prevwinnr] = s:PopHistory()
 		"echo 'popped' prevtabnr prevwinnr
 		"echo 'after s:PopHistory' s:twhistory
-		if g:twcommand_restore_prevfocus==1
+		if g:twcommand_restore_prevfocus==1 && prevtabnr!=-1
 			call s:JumpToTabWin(prevtabnr, prevwinnr)
 		endif
 	"when win closed
@@ -272,7 +275,7 @@ fun! s:CloseWin()
 		let [prevtabnr, prevwinnr] = s:PopHistory()
 		"echo 'popped' prevtabnr prevwinnr
 		"echo 'after s:PopHistory' s:twhistory
-		if g:twcommand_restore_prevfocus==1
+		if g:twcommand_restore_prevfocus==1 && prevtabnr!=-1
 			call s:JumpToTabWin(prevtabnr, prevwinnr)
 		endif
 	endif
