@@ -165,6 +165,25 @@ For *wmvt*,
 - If the target tab has only one window with [No Name] title and empty buffer, the moved window will replace it.
 - Otherwise, the moved window will be located as a new vertical split window in the target tab.
 
+----
+
+<table>
+  <tr>
+    <th>{cmd}</th>
+    <th>{arg}</th>
+    <th>description</th>
+  </tr>
+  <tr>
+    <td align="center" rowspan="9"><i>twh</i><br></td>
+    <th>h</th>
+    <td>Move <b>forward</b> in the tab-window history stack.</td>
+  </tr>
+  <tr>
+    <th>l</th>
+    <td>Move <b>backward</b> in the tab-window history stack.</td>
+  </tr>
+</table>
+
 ## Tab-Window History
 
 When you leave a window in vim, TWCommand pushes [tab_id, window_id] information of the window into its *tab-window history stack*.

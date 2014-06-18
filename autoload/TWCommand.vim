@@ -396,15 +396,14 @@ endfun
 """"""""""""""""""""""""""""""""""""""""
 " twh
 fun! s:twh(arg)
-	if a:arg==#'j'
+	if a:arg==#'h'
 		call s:ForwardHistory()
-	elseif a:arg==#'k'
+	elseif a:arg==#'l'
 		call s:BackwardHistory()
 	endif
 endfun
 
 fun! s:ForwardHistory()
-	echo "forward"
 	if s:twhistory_cur_idx==0
 		return
 	endif
@@ -417,10 +416,10 @@ fun! s:ForwardHistory()
 
 	let [tabnr, winnr] = s:twhistory[s:twhistory_cur_idx]
 	call s:JumpToTabWin(tabnr, winnr)
+	"call TWCommand#PrintHistory()
 endfun
 
 fun! s:BackwardHistory()
-	echo "backward"
 	if s:twhistory_cur_idx==len(s:twhistory)-1
 		return
 	endif
@@ -433,5 +432,6 @@ fun! s:BackwardHistory()
 
 	let [tabnr, winnr] = s:twhistory[s:twhistory_cur_idx]
 	call s:JumpToTabWin(tabnr, winnr)
+	"call TWCommand#PrintHistory()
 endfun
 
