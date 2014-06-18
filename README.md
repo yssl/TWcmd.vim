@@ -2,6 +2,10 @@
 
 TWCommand is a set of useful commands for moving & managing tabs and windows in vim.
 
+<!--- Tab-window history-->
+
+<!--- Moving a tab / window-->
+
 - Move a tab
 ![tmv_opt](https://f.cloud.github.com/assets/5915359/2292424/ee3f5c92-a058-11e3-9014-db07bd4dc9dd.gif)
 
@@ -40,6 +44,7 @@ tmv     | <b>t</b>ab <b>m</b>o<b>v</b>ing commands
 wcm     | <b>w</b>indow <b>c</b>o<b>m</b>mands
 wmv     | <b>w</b>indow <b>m</b>o<b>v</b>ing commands
 wmvt    | <b>w</b>indow <b>m</b>o<b>v</b>ing commands between <b>t</b>abs
+twh     | <b>t</b>ab-<b>w</b>indow <b>h</b>istory commands
 
 ## Arguments
 
@@ -84,7 +89,7 @@ wmvt    | <b>w</b>indow <b>m</b>o<b>v</b>ing commands between <b>t</b>abs
   </tr>
   <tr>
     <th><b>p</b></th>
-    <td>Go to the <b>previous</b> <i>tab</i> / <i>window</i>.<br></td>
+    <td>Go to the <b>previous</b> <i>tab</i> / <b>previous</b> <i>window</i> in the current tab.<br></td>
   </tr>
   <tr>
     <th><b>q</b></th>
@@ -162,9 +167,9 @@ For *wmvt*,
 
 ## Tab-Window History
 
-Whenever you leave a window in vim, TWCommand pushes [tab_id, window_id] information of the window into its *tab-window history stack*.
+When you leave a window in vim, TWCommand pushes [tab_id, window_id] information of the window into its *tab-window history stack*.
 
-TWCommand sequentially moves the cursor to the last accessed windows when closing a sequence of windows or tabs using the history.
+TWCommand sequentially moves the cursor to the last accessed windows using the history when closing a sequence of windows or tabs.
 <!--You can also walk through your accessed windows in the history with *twhs* subcommand.-->
 
 ## Recommended Key Mappings

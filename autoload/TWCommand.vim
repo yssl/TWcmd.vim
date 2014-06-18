@@ -8,6 +8,9 @@
 if !exists('s:twhistory')
 	let s:twhistory = []
 endif
+if !exists('s:twhistory_cur_idx')
+	let s:twhistory_cur_idx = -1
+endif
 
 """"""""""""""""""""""""""""""""""""""""
 " interface
@@ -22,6 +25,8 @@ fun! TWCommand#TWCommand(cmd, arg)
 		call s:wmv(a:arg)
 	elseif a:cmd==#'wmvt'
 		call s:wmvt(a:arg)
+	elseif a:cmd==#'twh'
+		call s:twh(a:arg)
 	endif
 endfun
 
@@ -37,20 +42,23 @@ fun! TWCommand#PushHistory(tabnr, winnr)
 	if len(s:twhistory) > g:twcommand_maxhistory
 		unlet s:twhistory[0]
 	endif
+	let s:twhistory_cur_idx = -1
 	"echo 'push' [a:tabnr,a:winnr]
 	"echo s:twhistory
 endfun
 
 fun! TWCommand#PrintHistory()
 	echo s:twhistory
+	echo s:twhistory_cur_idx
 endfun
 
 """"""""""""""""""""""""""""""""""""""""
 " common functions
 fun! s:PopHistory()
-	if len(s:twhistory) > 1
+	if len(s:twhistory) > 0
 		let tw = s:twhistory[-1]
 		unlet s:twhistory[-1]
+		let s:twhistory_cur_idx = -1
 		"echo 'pop' tw
 		"echo s:twhistory
 		return tw
@@ -384,3 +392,46 @@ fun! s:MoveWinBtwnTabs(tabnr1, winnr1, tabnr2)
 
 	exec 'buffer' bufnr1
 endfun
+
+""""""""""""""""""""""""""""""""""""""""
+" twh
+fun! s:twh(arg)
+	if a:arg==#'j'
+		call s:ForwardHistory()
+	elseif a:arg==#'k'
+		call s:BackwardHistory()
+	endif
+endfun
+
+fun! s:ForwardHistory()
+	echo "forward"
+	if s:twhistory_cur_idx==0
+		return
+	endif
+
+	if s:twhistory_cur_idx==-1
+		let s:twhistory_cur_idx = len(s:twhistory)-1
+	else
+		let s:twhistory_cur_idx = s:twhistory_cur_idx-1
+	endif
+
+	let [tabnr, winnr] = s:twhistory[s:twhistory_cur_idx]
+	call s:JumpToTabWin(tabnr, winnr)
+endfun
+
+fun! s:BackwardHistory()
+	echo "backward"
+	if s:twhistory_cur_idx==len(s:twhistory)-1
+		return
+	endif
+
+	if s:twhistory_cur_idx==-1
+		return
+	endif
+
+	let s:twhistory_cur_idx = s:twhistory_cur_idx+1
+
+	let [tabnr, winnr] = s:twhistory[s:twhistory_cur_idx]
+	call s:JumpToTabWin(tabnr, winnr)
+endfun
+

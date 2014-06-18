@@ -16,7 +16,7 @@ if !exists('g:twcommand_restore_prevfocus')
 	let g:twcommand_restore_prevfocus = 1
 endif
 if !exists('g:twcommand_maxhistory')
-	let g:twcommand_maxhistory = 10
+	let g:twcommand_maxhistory = 20
 endif
 if !exists('g:twcommand_push')
 	let g:twcommand_push = 1
