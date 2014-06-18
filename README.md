@@ -189,7 +189,7 @@ For *wmvt*,
 When you leave a window in vim, TWCommand pushes [tab_id, window_id] information of the window into its *tab-window history stack*.
 
 TWCommand sequentially moves the cursor to the last accessed windows using the history when closing a sequence of windows or tabs.
-<!--You can also walk through your accessed windows in the history with *twhs* subcommand.-->
+You can also walk through windows in the history with *twhs* subcommand.
 
 ## Recommended Key Mappings
 

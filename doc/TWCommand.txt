@@ -15,99 +15,87 @@ Contents                                                  *TWCommand-contents*
 ==============================================================================
 1. Introduction                                              *TWCommand-intro*
 
-TWCommand is a set of useful commands for moving & managing a tab or window in vim.
+TWCommand is a set of useful commands for moving & managing tabs and windows in vim.
 
 ==============================================================================
 2. Usage                                                     *TWCommand-usage*
 
 In vim normal mode, type the following command and press `<Enter>`.  
-:TWCommand {cmd} {arg}  
+:TWCommand {cmd} {arg}
 
-- {cmd} : subcommands for tab / window moving & managing
-- {arg} : vim `:wincmd`-style single character arguments to indicate a moving direction or desired action
+- {cmd} : sub-commands for tabs or windows
+- {arg} : vim's `:wincmd`-style single character arguments 
 
 For example,
 ```
-:TWComand tcm l    |" move cursor to the right tab
-:TWComand wmv h    |" move current window to left
+:TWComand tcm l    |" go to the right tab
+:TWComand tmv l    |" move the current tab right
+:TWComand wmv h    |" move the current window left
 :TWComand tcm q    |" close current tab
 ```
 
-It must be more convinient to define key mappings for frequently used subcommands and arguments.  
-My recommendation for key mappings are given in |TWCommand-mappings|.
+It must be much more convinient to define key mappings for frequently used commands.  
+My key mapping recommendation is given in [the last section](#recommended-key-mappings) of this page.
 
-The descriptions for {cmd} and {arg} are given as follows:
-
-### {cmd}
+## Commands
 
 {cmd}   | description 
 ---     | ---
-tcm     | **t**ab **c**o<b>m</b>mand for cursor moving and managing
-tmv     | **t**ab **m**o<b>v</b>ing command
-wcm     | **w**indow **c**o<b>m</b>mand for cursor moving and managing
-wmv     | **w**indow **m**o<b>v</b>ing command
-wmvt    | **w**indow **m**o<b>v</b>ing command between **t**abs
+tcm     | tab commands
+tmv     | tab moving commands
+wcm     | window commands
+wmv     | window moving commands
+wmvt    | window moving commands between tabs
+twh     | tab-window history commands
 
-### {arg} for tcm (tab command for cursor moving and managing)
+## Arguments
 
-{arg} | description
----   | ---
-h     | Go to the left tab page.
-l     | Go to the right tab page.
-W     | Go to the left tab page. Wraps around from the first to the last one.
-w     | Go to the right tab page. Wraps around from the last to the first one.
-t     | Go to the first tab page.
-b     | Go to the last tab page.
-p     | Go to the previous tab page.
-q     | Close current tab page and move focus to previously focused one.
-n     | Open a new tab page with an empty window, after the current tab page.
-o     | Close all other tab pages.
+{cmd} | {arg} | description
+---   | ---   | ---
+      | h     | Go to the left tab / window.
+      | l     | Go to the right tab / window.
+      | j     | Go to the below window. (wcm only)
+      | k     | Go to the above window. (wcm only)
+      | W     | Go to the left tab / left or above window. Wraps around from the first to the last one.
+tcm / | w     | Go to the right tab / right or below window. Wraps around from the last to the first one.
+wcm   | t     | Go to the first tab / top-left window.
+      | b     | Go to the last tab / bottom-right window.
+      | p     | Go to the previous tab / previous window in the current tab.
+      | q     | Close the current tab / window and go to the latest one in the tab-window history.
+      | n     | Open a new tab / window.
+      | o     | Close all other tabs / windows except the current one.
+      | m     | Toggle maximizing the current window. (wcm only)
 
-### {arg} for tmv (tab moving command)
+- wcm can be used with all other arguments that used in the vim's `:wincmd` command.
 
-{arg} | description
----   | ---
-h     | Move current tab to left.
-l     | Move current tab to right.
-p     | Move current tab to location of previously focused tab.
+{cmd} | {arg} | description
+---   | ---   | ---
+      | h     | Move the current tab left / window left / window to the left tab.
+      | l     | Move the current tab right / window right / window to the right tab.
+tmv / | j     | Move the current window below. (wmv only)
+wmv / | k     | Move the current window above. (wmv only)
+wmvt  | W     | Move the current tab left / window left or above / window to the left tab. Wraps around from the first to the last one.
+      | w     | Move the current tab right / window right or below / window to the right tab. Wraps around from the last to the first one.
+      | t     | Move the current tab to first position / window to top-left position / window to the first tab.
+      | b     | Move the current tab to last position / window to bottom-right position / window to the last tab.
+      | p     | Move the current tab to previous position / window to previous position / window to the previous tab.
 
-and all other arguments used with `tcm` subcommand that moves a cursor such as w, W, t, b.
+For wmvt,
+- The current tab will be closed after moving its window if it is the only one.
+- If the target tab has only one window with [No Name] title and empty buffer, the moved window will replace it.
+- Otherwise, the moved window will be located as a new vertical split window in the target tab.
 
-### {arg} for wcm (window command for cursor moving and managing)
+{cmd} | {arg} | description
+---   | ---   | ---
+twh   | h     | Move forward in the tab-window history stack.
+      | l     | Move backward in the tab-window history stack.
 
-{arg} | description
----   | ---
-q     | Quit current window and move cursor to previously focused one.
-m     | Toggle maximizing current window.
+## Tab-Window History
 
-and all other arguments used in `:wincmd`.
+When you leave a window in vim, TWCommand pushes [tab_id, window_id] information of the window into its *tab-window history stack*.
 
-### {arg} for wmv (window moving command)
-
-{arg} | description
----   | ---
-h     | Move current window to left.
-l     | Move current window to right.
-j     | Move current window to down.
-k     | Move current window to up.
-p     | Move current window to location of previously focused window.
-
-and all other arguments used in `:wincmd` that moves a cursor such as w, W, t, b.
-
-### {arg} for wmvt (window moving command between tabs)
-
-{arg} | description
----   | ---
-h     | Move current window to left tab. If there is no left tab, new left tab is created.
-l     | Move current window to right tab. If there is no right tab, new right tab is created.
-p     | Move current window to previously focused tab.
-
-and all other arguments used with `tcm` subcommand that moves a cursor such as w, W, t, b.  
-
-When moving, 
-- Current tab will be closed if it has only one window (current window).  
-- If target tab has only one window with [No Name] title and empty buffer, current window replaces it.
-- Otherwise, current window is located at a new vertical split window of target tab.
+TWCommand sequentially moves the cursor to the last accessed windows using the history when closing a sequence of windows or tabs.
+You can also walk through windows in the history with *twhs* subcommand.
 
 ==============================================================================
 3. Options                                                 *TWCommand-options*
