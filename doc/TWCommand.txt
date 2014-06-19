@@ -8,9 +8,12 @@ Contents                                                  *TWCommand-contents*
 
          1. Introduction ............................... |TWCommand-intro|
          2. Usage ...................................... |TWCommand-usage|
-         3. Options .................................... |TWCommand-options|
-         4. Recommended Key Mappings ....................|TWCommand-mappings|
-         5. Changelog .................................. |TWCommand-changelog|
+         3. Commands ................................... |TWCommand-commands|
+         4. Arguments .................................. |TWCommand-arguments|
+         5. Tab-Window History ......................... |TWCommand-tabwindowhistory|
+         6. Options .................................... |TWCommand-options|
+         7. Recommended Key Mappings ................... |TWCommand-mappings|
+         8. Changelog .................................. |TWCommand-changelog|
 
 ==============================================================================
 1. Introduction                                              *TWCommand-intro*
@@ -34,10 +37,11 @@ For example,
 :TWComand tcm q    |" close current tab
 ```
 
-It must be much more convinient to define key mappings for frequently used commands.  
+It must be much more convenient to define key mappings for frequently used commands.  
 My key mapping recommendation is given in [the last section](#recommended-key-mappings) of this page.
 
-## Commands
+==============================================================================
+3. Commands                                               *TWCommand-commands*
 
 {cmd}   | description 
 ---     | ---
@@ -48,7 +52,8 @@ wmv     | window moving commands
 wmvt    | window moving commands between tabs
 twh     | tab-window history commands
 
-## Arguments
+==============================================================================
+4. Arguments                                             *TWCommand-arguments*
 
 {cmd} | {arg} | description
 ---   | ---   | ---
@@ -90,28 +95,35 @@ For wmvt,
 twh   | h     | Move forward in the tab-window history stack.
       | l     | Move backward in the tab-window history stack.
 
-## Tab-Window History
+==============================================================================
+5. Tab-Window History                             *TWCommand-tabwindowhistory*
 
 When you leave a window in vim, TWCommand pushes [tab_id, window_id] information of the window into its *tab-window history stack*.
 
 TWCommand sequentially moves the cursor to the last accessed windows using the history when closing a sequence of windows or tabs.
-You can also walk through windows in the history with *twhs* subcommand.
+You can also walk through windows in the history with *twh* sub-command.
 
 ==============================================================================
-3. Options                                                 *TWCommand-options*
+6. Options                                                 *TWCommand-options*
 
 *g:twcommand_restore_prevfocus*
-If enabled, the focus is moved to the previously focused tab or window when a tab or window is closed.
-Else, the focus is moved to the next tab or window (the default vim behavior).
+If enabled, the cursor is moved to the latest window in the tab-window history when a tab or window is closed.
+Else, the cursor is moved to the next tab or window (the default vim behavior).
 Default: >
 	let g:twcommand_restore_prevfocus = 1
 <
 
+*g:twcommand_maxhistory*
+Maximum number of entries of the tab-window history.
+Default: >
+	let g:twcommand_maxhistory = 20
+<
+
 ==============================================================================
-4. Recommended Key Mappings                               *TWCommand-mappings*
+7. Recommended Key Mappings                               *TWCommand-mappings*
 
 TWCommand does not provide default key mappings to keep your key mappings clean.
-Instead, I suggest convinient key mappings what I'm using now.
+Instead, I suggest convenient key mappings what I'm using now.
 You can add them to your .vimrc and modify them as you want.
 
 ```
@@ -163,7 +175,7 @@ and installed ![vim-fixkey](https://github.com/drmikehenry/vim-fixkey) plugin to
 `<A-H>` means alt+shift+h.
 
 ==============================================================================
-5. Changelog                                             *TWCommand-changelog*
+8. Changelog                                             *TWCommand-changelog*
 
 1.0.0                       2014/02/27
     - first version
