@@ -22,7 +22,7 @@ For example,
 :TWComand tcm q    |" close current tab
 ```
 
-It must be much more convinient to define key mappings for frequently used commands.  
+It must be much more convenient to define key mappings for frequently used commands.  
 My key mapping recommendation is given in [the last section](#recommended-key-mappings) of this page.
 
 ## Commands
@@ -179,12 +179,12 @@ For *wmvt*,
 When you leave a window in vim, TWCommand pushes [tab_id, window_id] information of the window into its *tab-window history stack*.
 
 TWCommand sequentially moves the cursor to the last accessed windows using the history when closing a sequence of windows or tabs.
-You can also walk through windows in the history with *twhs* subcommand.
+You can also walk through windows in the history with *twh* sub-command.
 
 ## Recommended Key Mappings
 
 TWCommand does not provide default key mappings to keep your key mappings clean.
-Instead, I suggest convinient one what I'm using now.
+Instead, I suggest convenient one what I'm using now.
 You can add them to your .vimrc and modify them as you want.
 
 ```
