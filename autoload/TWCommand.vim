@@ -1,5 +1,5 @@
 " File:         autoload/TWCommand.vim
-" Description:  A plugin for moving & managing a tab or window.
+" Description:  Extended tab / window moving commands.
 " Author:       yssl <http://github.com/yssl>
 " License:      
 
