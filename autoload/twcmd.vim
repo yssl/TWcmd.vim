@@ -1,5 +1,5 @@
-" File:         autoload/TWCommand.vim
-" Description:  Extended tab / window moving commands.
+" File:         autoload/twcmd.vim
+" Description:  vim's wincmd-style extended tab / window moving commands.
 " Author:       yssl <http://github.com/yssl>
 " License:      
 
@@ -14,7 +14,7 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""
 " interface
-fun! TWCommand#TWCommand(cmd, arg)
+fun! twcmd#twcmd(cmd, arg)
 	if a:cmd==#'tcm'
 		call s:tcm(a:arg)
 	elseif a:cmd==#'tmv'
@@ -30,7 +30,7 @@ fun! TWCommand#TWCommand(cmd, arg)
 	endif
 endfun
 
-fun! TWCommand#PushHistory(tabnr, winnr)
+fun! twcmd#PushHistory(tabnr, winnr)
 	if len(s:twhistory)>0
 		let [lasttabnr, lastwinnr] = s:twhistory[-1]
 		if lasttabnr==a:tabnr && lastwinnr==a:winnr
@@ -39,7 +39,7 @@ fun! TWCommand#PushHistory(tabnr, winnr)
 	endif
 
 	call add(s:twhistory, [a:tabnr,a:winnr])
-	if len(s:twhistory) > g:twcommand_maxhistory
+	if len(s:twhistory) > g:twcmd_maxhistory
 		unlet s:twhistory[0]
 	endif
 	let s:twhistory_cur_idx = -1
@@ -47,7 +47,7 @@ fun! TWCommand#PushHistory(tabnr, winnr)
 	"echo s:twhistory
 endfun
 
-fun! TWCommand#PrintHistory()
+fun! twcmd#PrintHistory()
 	echo s:twhistory
 	echo s:twhistory_cur_idx
 endfun
@@ -68,10 +68,10 @@ fun! s:PopHistory()
 endfun
 
 fun! s:JumpToTabWin(tabnr, winnr)
-	let g:twcommand_push = 0
+	let g:twcmd_push = 0
 	call s:JumpToTab(a:tabnr)
 	call s:JumpToWin(a:winnr)
-	let g:twcommand_push = 1
+	let g:twcmd_push = 1
 endfun
 
 fun! s:RemoveWinFromHistory(basetabnr, closewinnr)
@@ -194,7 +194,7 @@ fun! s:CloseTab()
 		let [prevtabnr, prevwinnr] = s:PopHistory()
 		"echo 'popped' prevtabnr prevwinnr
 		"echo 'after s:PopHistory' s:twhistory
-		if g:twcommand_restore_prevfocus==1 && prevtabnr!=-1
+		if g:twcmd_restore_prevfocus==1 && prevtabnr!=-1
 			call s:JumpToTabWin(prevtabnr, prevwinnr)
 		endif
 	endif
@@ -270,7 +270,7 @@ fun! s:CloseWin()
 		let [prevtabnr, prevwinnr] = s:PopHistory()
 		"echo 'popped' prevtabnr prevwinnr
 		"echo 'after s:PopHistory' s:twhistory
-		if g:twcommand_restore_prevfocus==1 && prevtabnr!=-1
+		if g:twcmd_restore_prevfocus==1 && prevtabnr!=-1
 			call s:JumpToTabWin(prevtabnr, prevwinnr)
 		endif
 	"when win closed
@@ -283,7 +283,7 @@ fun! s:CloseWin()
 		let [prevtabnr, prevwinnr] = s:PopHistory()
 		"echo 'popped' prevtabnr prevwinnr
 		"echo 'after s:PopHistory' s:twhistory
-		if g:twcommand_restore_prevfocus==1 && prevtabnr!=-1
+		if g:twcmd_restore_prevfocus==1 && prevtabnr!=-1
 			call s:JumpToTabWin(prevtabnr, prevwinnr)
 		endif
 	endif
@@ -416,7 +416,7 @@ fun! s:ForwardHistory()
 
 	let [tabnr, winnr] = s:twhistory[s:twhistory_cur_idx]
 	call s:JumpToTabWin(tabnr, winnr)
-	"call TWCommand#PrintHistory()
+	"call twcmd#PrintHistory()
 endfun
 
 fun! s:BackwardHistory()
@@ -432,6 +432,6 @@ fun! s:BackwardHistory()
 
 	let [tabnr, winnr] = s:twhistory[s:twhistory_cur_idx]
 	call s:JumpToTabWin(tabnr, winnr)
-	"call TWCommand#PrintHistory()
+	"call twcmd#PrintHistory()
 endfun
 
