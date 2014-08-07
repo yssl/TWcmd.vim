@@ -3,7 +3,7 @@
 twcmd.vim is a set of useful commands for moving & managing tabs and windows in vim.
 
 - Move a tab / window
-![twmove_opt](https://cloud.githubusercontent.com/assets/5915359/3352085/b4d72c90-fa31-11e3-81bd-be7ed57d6e70.gif)
+![twmove2_opt](https://cloud.githubusercontent.com/assets/5915359/3844245/89017712-1e47-11e4-9f19-089d56a035d8.gif)
 
 - Stack visited windows and recover them when closing
 ![twhistory_opt](https://cloud.githubusercontent.com/assets/5915359/3351949/c7c4c2d6-fa27-11e3-816a-f448657a5dba.gif)
@@ -16,10 +16,10 @@ In vim normal mode, type the following command and press `<Enter>`.
 
 For example,
 ```
-:TWComand tcm l    |" go to the right tab
-:TWComand tmv l    |" move the current tab right
-:TWComand wmv h    |" move the current window left
-:TWComand tcm q    |" close current tab
+:TWcmd tcm l    |" go to the right tab
+:TWcmd tmv l    |" move the current tab right
+:TWcmd wmv h    |" move the current window left
+:TWcmd tcm q    |" close current tab
 ```
 
 It must be much more convenient to define key mappings for frequently used commands.  
