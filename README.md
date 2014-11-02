@@ -8,6 +8,17 @@ twcmd.vim is a set of useful commands for moving & managing tabs and windows in 
 - Stack visited windows and recover them when closing
 ![twhistory_opt](https://cloud.githubusercontent.com/assets/5915359/3351949/c7c4c2d6-fa27-11e3-816a-f448657a5dba.gif)
 
+## Installation
+
+- Using one of plugin managers (recommended)
+    - [Vundle](https://github.com/gmarik/Vundle.vim) : Add `Bundle 'yssl/twcmd.vim'` to .vimrc & `:BundleInstall`
+    - [NeoBundle](https://github.com/Shougo/neobundle.vim) : Add `NeoBundle 'yssl/twcmd.vim'` to .vimrc & `:NeoBundleInstall`
+    - [vim-plug](https://github.com/junegunn/vim-plug) : Add `Plug 'yssl/twcmd.vim'` to .vimrc & `:PlugInstall`
+- Using [Pathogen](https://github.com/tpope/vim-pathogen)
+    - `cd ~/.vim/bundle; git clone https://github.com/yssl/twcmd.vim.git`
+- Manual install (not recommended)
+    - Download this plugin and extract it in `~/.vim/`
+
 ## Usage
 In vim normal mode, type the following command and press `<Enter>`.  
 **:TWcmd {cmd} {arg}**  
