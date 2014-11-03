@@ -10,7 +10,7 @@ twcmd.vim is a set of useful commands for moving & managing tabs and windows in 
 
 ## Installation
 
-- Using one of plugin managers (recommended)
+- Using plugin managers (recommended)
     - [Vundle](https://github.com/gmarik/Vundle.vim) : Add `Bundle 'yssl/twcmd.vim'` to .vimrc & `:BundleInstall`
     - [NeoBundle](https://github.com/Shougo/neobundle.vim) : Add `NeoBundle 'yssl/twcmd.vim'` to .vimrc & `:NeoBundleInstall`
     - [vim-plug](https://github.com/junegunn/vim-plug) : Add `Plug 'yssl/twcmd.vim'` to .vimrc & `:PlugInstall`
