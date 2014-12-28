@@ -98,19 +98,29 @@ twh   | h     | Move forward in the tab-window history stack.
 ==============================================================================
 5. Tab-Window History                             *twcmd-tabwindowhistory*
 
-When you leave a window in vim, twcmd.vim pushes [tab_id, window_id] information of the window into its *tab-window history stack*.
+When you leave a window in vim, twcmd.vim pushes [tab_id, window_id] information 
+of the window into its *tab-window history stack*.
 
-twcmd.vim sequentially moves the cursor to the last accessed windows using the history when closing a sequence of windows or tabs.
+twcmd.vim moves the cursor to the last focused window using the history stack
+when closing a window or tab. (see *g:twcmd_focus_after_closing* option for more details.)
 You can also walk through windows in the history with *twh* sub-command.
 
 ==============================================================================
 6. Options                                                 *twcmd-options*
 
-*g:twcmd_restore_prevfocus*
-If enabled, the cursor is moved to the latest window in the tab-window history when a tab or window is closed.
-Else, the cursor is moved to the next tab or window (the default vim behavior).
+*g:twcmd_focus_after_closing*
+This option determines which window has to be focused after closing a tab or window.
+
+'prev_win_curr_tab': The cursor jumps to the lastest window of the current tab 
+                     in the tab-window history when closing a window.
+                     Same as 'prev_win_tab' when closing a tab.
+'prev_win_tab': The cursor jumps to the latest [tab, window] pair in the tab-window history 
+                when closing a window or tab. 
+'none': Do not use the tab-window history when closing a window or tab.
+        The cursor will simply move to the next tab or window (the default vim's behavior).
+
 Default: >
-	let g:twcmd_restore_prevfocus = 1
+	let g:twcmd_focus_after_closing = 'prev_win_curr_tab'
 <
 
 *g:twcmd_maxhistory*
@@ -178,10 +188,15 @@ and installed ![vim-fixkey](https://github.com/drmikehenry/vim-fixkey) plugin to
 8. Changelog                                             *twcmd-changelog*
 
 1.0.0                       2014/02/27
-    - first version
+	- first version
 1.1.0                       2014/06/22
 	- add tab-window history stack feature
 	- update screencast
 	- update documents
 1.2.0						2014/08/08
 	- change the name to twcmd.vim
+1.3.0						2014/12/28
+	- g:twcmd_restore_prevfocus has been changed to g:twcmd_focus_after_closing
+	  which can be one of the string values, 'prev_win_curr_tab', 'prev_win_tab',or 'none'.
+	- change default focusing behavior to 'jump to the lastest window of the current tab'
+	  when a window is closed. ('prev_win_curr_tab')

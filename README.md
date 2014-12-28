@@ -189,7 +189,8 @@ For *wmvt*,
 
 When you leave a window in vim, twcmd.vim pushes [tab_id, window_id] information of the window into its *tab-window history stack*.
 
-twcmd.vim sequentially moves the cursor to the last accessed windows using the history when closing a sequence of windows or tabs.
+twcmd.vim moves the cursor to the last focused window using the history stack
+when closing a window or tab. (see `g:twcmd_focus_after_closing` option for more details.)
 You can also walk through windows in the history with *twh* sub-command.
 
 ## Recommended Key Mappings

@@ -194,8 +194,13 @@ fun! s:CloseTab()
 		let [prevtabnr, prevwinnr] = s:PopHistory()
 		"echo 'popped' prevtabnr prevwinnr
 		"echo 'after s:PopHistory' s:twhistory
-		if g:twcmd_restore_prevfocus==1 && prevtabnr!=-1
-			call s:JumpToTabWin(prevtabnr, prevwinnr)
+		if prevtabnr!=-1
+			if g:twcmd_focus_after_closing==#'prev_win_curr_tab' ||
+			\ g:twcmd_focus_after_closing==#'prev_win_tab'
+				call s:JumpToTabWin(prevtabnr, prevwinnr)
+			else
+				echoerr 'twcmd.vim: '''.g:twcmd_focus_after_closing.''' is an undefined value for g:twcmd_focus_after_closing.'
+			endif
 		endif
 	endif
 	"echo 'after s:CloseTab()' s:twhistory
@@ -270,8 +275,13 @@ fun! s:CloseWin()
 		let [prevtabnr, prevwinnr] = s:PopHistory()
 		"echo 'popped' prevtabnr prevwinnr
 		"echo 'after s:PopHistory' s:twhistory
-		if g:twcmd_restore_prevfocus==1 && prevtabnr!=-1
-			call s:JumpToTabWin(prevtabnr, prevwinnr)
+		if prevtabnr!=-1
+			if g:twcmd_focus_after_closing==#'prev_win_curr_tab' ||
+			\ g:twcmd_focus_after_closing==#'prev_win_tab'
+				call s:JumpToTabWin(prevtabnr, prevwinnr)
+			else
+				echoerr 'twcmd.vim: '''.g:twcmd_focus_after_closing.''' is an undefined value for g:twcmd_focus_after_closing.'
+			endif
 		endif
 	"when win closed
 	elseif beforewincount != afterwincount 
@@ -283,8 +293,20 @@ fun! s:CloseWin()
 		let [prevtabnr, prevwinnr] = s:PopHistory()
 		"echo 'popped' prevtabnr prevwinnr
 		"echo 'after s:PopHistory' s:twhistory
-		if g:twcmd_restore_prevfocus==1 && prevtabnr!=-1
-			call s:JumpToTabWin(prevtabnr, prevwinnr)
+		if prevtabnr!=-1
+			if g:twcmd_focus_after_closing==#'prev_win_curr_tab'
+				while !(prevtabnr==closingtabnr || prevtabnr==-1)
+					let [prevtabnr, prevwinnr] = s:PopHistory()
+				endwhile
+				"echo prevtabnr prevwinnr
+				if prevtabnr!=-1
+					call s:JumpToTabWin(prevtabnr, prevwinnr)
+				endif
+			elseif g:twcmd_focus_after_closing==#'prev_win_tab'
+				call s:JumpToTabWin(prevtabnr, prevwinnr)
+			else
+				echoerr 'twcmd.vim: '''.g:twcmd_focus_after_closing.''' is an undefined value for g:twcmd_focus_after_closing.'
+			endif
 		endif
 	endif
 	"echo 'after s:CloseWin()' s:twhistory
