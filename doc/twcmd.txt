@@ -102,7 +102,7 @@ When you leave a window in vim, twcmd.vim pushes [tab_id, window_id] information
 of the window into its *tab-window history stack*.
 
 twcmd.vim moves the cursor to the last focused window using the history stack
-when closing a window or tab. (see :help *g:twcmd_focus_after_closing* for more details.)
+when closing a window or tab. (see :help |g:twcmd_focus_after_closing| for more details.)
 You can also walk through windows in the history with *twh* sub-command.
 
 ==============================================================================
