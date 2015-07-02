@@ -1,6 +1,6 @@
-# twcmd.vim
+# TWcmd.vim
 
-twcmd.vim is a set of useful commands for moving & managing tabs and windows in vim.
+TWcmd.vim is a set of useful commands for moving & managing tabs and windows in vim.
 
 - Move a tab / window
 ![twmove2_opt](https://cloud.githubusercontent.com/assets/5915359/3844245/89017712-1e47-11e4-9f19-089d56a035d8.gif)
@@ -12,11 +12,11 @@ twcmd.vim is a set of useful commands for moving & managing tabs and windows in 
 ## Installation
 
 - Using plugin managers (recommended)
-    - [Vundle](https://github.com/gmarik/Vundle.vim) : Add `Bundle 'yssl/twcmd.vim'` to .vimrc & `:BundleInstall`
-    - [NeoBundle](https://github.com/Shougo/neobundle.vim) : Add `NeoBundle 'yssl/twcmd.vim'` to .vimrc & `:NeoBundleInstall`
-    - [vim-plug](https://github.com/junegunn/vim-plug) : Add `Plug 'yssl/twcmd.vim'` to .vimrc & `:PlugInstall`
+    - [Vundle](https://github.com/gmarik/Vundle.vim) : Add `Bundle 'yssl/TWcmd.vim'` to .vimrc & `:BundleInstall`
+    - [NeoBundle](https://github.com/Shougo/neobundle.vim) : Add `NeoBundle 'yssl/TWcmd.vim'` to .vimrc & `:NeoBundleInstall`
+    - [vim-plug](https://github.com/junegunn/vim-plug) : Add `Plug 'yssl/TWcmd.vim'` to .vimrc & `:PlugInstall`
 - Using [Pathogen](https://github.com/tpope/vim-pathogen)
-    - `cd ~/.vim/bundle; git clone https://github.com/yssl/twcmd.vim.git`
+    - `cd ~/.vim/bundle; git clone https://github.com/yssl/TWcmd.vim.git`
 - Manual install (not recommended)
     - Download this plugin and extract it in `~/.vim/`
 
@@ -188,15 +188,15 @@ For *wmvt*,
 
 ## Tab-Window History
 
-When you leave a window in vim, twcmd.vim pushes [tab_id, window_id] information of the window into its *tab-window history stack*.
+When you leave a window in vim, TWcmd.vim pushes [tab_id, window_id] information of the window into its *tab-window history stack*.
 
-twcmd.vim moves the cursor to the last focused window using the history stack
+TWcmd.vim moves the cursor to the last focused window using the history stack
 when closing a window or tab. (see `:help g:twcmd_focus_after_closing` for more details.)
 You can also walk through windows in the history with *twh* sub-command.
 
 ## Recommended Key Mappings
 
-twcmd.vim does not provide default key mappings to keep your key mappings clean.
+TWcmd.vim does not provide default key mappings to keep your key mappings clean.
 Instead, I suggest convenient one what I'm using now.
 You can add them to your .vimrc and modify them as you want.
 
