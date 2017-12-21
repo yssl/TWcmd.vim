@@ -219,26 +219,23 @@ fun! s:tmv(arg)
 	call s:MoveTab(tabnr1, tabnr2)
 endfun
 
+" move a tab located at tabnr1 to tabnr2 location
 fun! s:MoveTab(tabnr1, tabnr2)
 	if a:tabnr1==a:tabnr2 
 		return
 	endif
 
-	if a:tabnr1<a:tabnr2
-		let pos1 = a:tabnr1-1
-		let pos2 = a:tabnr2-2
-	else
-		let pos1 = a:tabnr1-1
-		let pos2 = a:tabnr2
-	endif
-
 	exec 'tabnext' a:tabnr1
-	exec 'tabmove' pos2
-
-	exec 'tabnext' a:tabnr2
-	exec 'tabmove' pos1
-
-	exec 'tabnext' a:tabnr2
+	if a:tabnr1<a:tabnr2
+		if has('win32')
+			" I think moving to tabnr2 is correct, but tabnr2-1 works correctly on Windows. Don't know why.
+			exec 'tabmove' a:tabnr2-1
+		else
+			exec 'tabmove' a:tabnr2
+		endif
+	else
+		exec 'tabmove' a:tabnr2-1
+	endif
 endfun
 
 """"""""""""""""""""""""""""""""""""""""
