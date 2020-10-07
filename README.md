@@ -200,6 +200,9 @@ TWcmd.vim does not provide default key mappings to keep your key mappings clean.
 Instead, I suggest convenient one what I'm using now.
 You can add them to your .vimrc and modify them as you want.
 
+I'm currently using the right alt key shortcuts because I used the left alt key too often and felt pain in my thumb.
+If you are experiencing similar symptoms, I recommend using the right alt key shortcuts with `let g:left_alt = 0` as in the .vimrc setting below.
+
 ```
 function! s:nnoreicmap(option, shortcut, command)
 	execute 'nnoremap '.a:option.' '.a:shortcut.' '.a:command
@@ -207,41 +210,76 @@ function! s:nnoreicmap(option, shortcut, command)
 	execute 'cmap '.a:option.' '.a:shortcut.' <Esc>'.a:shortcut
 endfunction
 
-" tab cursor moving and managing
-call s:nnoreicmap('','<A-H>',':TWcmd tcm h<CR>')
-call s:nnoreicmap('','<A-L>',':TWcmd tcm l<CR>')
-call s:nnoreicmap('','<A-P>',':TWcmd tcm p<CR>')
-call s:nnoreicmap('','<A-Q>',':TWcmd tcm q<CR>')
-call s:nnoreicmap('','<A-N>',':TWcmd tcm n<CR>')
+let g:left_alt = 0
+if g:left_alt
+	" tab cursor moving and managing
+	call s:nnoreicmap('','<A-H>',':TWcmd tcm h<CR>')
+	call s:nnoreicmap('','<A-L>',':TWcmd tcm l<CR>')
+	call s:nnoreicmap('','<A-P>',':TWcmd tcm p<CR>')
+	call s:nnoreicmap('','<A-Q>',':TWcmd tcm q<CR>')
+	call s:nnoreicmap('','<A-N>',':TWcmd tcm n<CR>')
+	call s:nnoreicmap('','<A-Y>',':TWcmd tcm t<CR>')
+	call s:nnoreicmap('','<A-)>',':TWcmd tcm b<CR>')
 
-" tab moving
-call s:nnoreicmap('','<A-J>',':TWcmd tmv h<CR>')
-call s:nnoreicmap('','<A-K>',':TWcmd tmv l<CR>')
-call s:nnoreicmap('','<A-)>',':TWcmd tmv p<CR>')
+	" tab moving
+	call s:nnoreicmap('','<A-J>',':TWcmd tmv h<CR>')
+	call s:nnoreicmap('','<A-K>',':TWcmd tmv l<CR>')
+	call s:nnoreicmap('','<A-U>',':TWcmd tmv t<CR>')
+	call s:nnoreicmap('','<A-I>',':TWcmd tmv b<CR>')
 
-" window cursor moving and managing
-call s:nnoreicmap('','<A-h>',':TWcmd wcm h<CR>')
-call s:nnoreicmap('','<A-j>',':TWcmd wcm j<CR>')
-call s:nnoreicmap('','<A-k>',':TWcmd wcm k<CR>')
-call s:nnoreicmap('','<A-l>',':TWcmd wcm l<CR>')
-call s:nnoreicmap('','<A-p>',':TWcmd wcm p<CR>')
-call s:nnoreicmap('','<A-q>',':TWcmd wcm q<CR>')
-call s:nnoreicmap('','<A-n>',':TWcmd wcm n<CR>')
-call s:nnoreicmap('','<A-v>',':TWcmd wcm v<CR>')
-call s:nnoreicmap('','<A-s>',':TWcmd wcm s<CR>')
-call s:nnoreicmap('','<A-m>',':TWcmd wcm m<CR>')
+	" window cursor moving and managing
+	call s:nnoreicmap('','<A-h>',':TWcmd wcm h<CR>')
+	call s:nnoreicmap('','<A-j>',':TWcmd wcm j<CR>')
+	call s:nnoreicmap('','<A-k>',':TWcmd wcm k<CR>')
+	call s:nnoreicmap('','<A-l>',':TWcmd wcm l<CR>')
+	call s:nnoreicmap('','<A-p>',':TWcmd wcm p<CR>')
+	call s:nnoreicmap('','<C-w>',':TWcmd wcm q<CR>')
+	call s:nnoreicmap('','<A-n>',':TWcmd wcm n<CR>')
+	call s:nnoreicmap('','<C-v>',':TWcmd wcm v<CR>')
+	call s:nnoreicmap('','<A-m>',':TWcmd wcm m<CR>')
 
-" window moving
-call s:nnoreicmap('','<A-y>',':TWcmd wmv h<CR>')
-call s:nnoreicmap('','<A-u>',':TWcmd wmv j<CR>')
-call s:nnoreicmap('','<A-i>',':TWcmd wmv k<CR>')
-call s:nnoreicmap('','<A-o>',':TWcmd wmv l<CR>')
-call s:nnoreicmap('','<A-0>',':TWcmd wmv p<CR>')
+	" window moving
+	call s:nnoreicmap('','<A-y>',':TWcmd wmv h<CR>')
+	call s:nnoreicmap('','<A-o>',':TWcmd wmv l<CR>')
 
-" window moving between tabs
-call s:nnoreicmap('','<A-U>',':TWcmd wmvt h<CR>')
-call s:nnoreicmap('','<A-I>',':TWcmd wmvt l<CR>')
-call s:nnoreicmap('','<A-(>',':TWcmd wmvt p<CR>')
+	" window moving between tabs
+	call s:nnoreicmap('','<A-u>',':TWcmd wmvt h<CR>')
+	call s:nnoreicmap('','<A-i>',':TWcmd wmvt l<CR>')
+else
+	" tab cursor moving and managing
+	call s:nnoreicmap('','<A-S>',':TWcmd tcm h<CR>')
+	call s:nnoreicmap('','<A-G>',':TWcmd tcm l<CR>')
+	call s:nnoreicmap('','<A-Q>',':TWcmd tcm p<CR>')
+	call s:nnoreicmap('','<A-C>',':TWcmd tcm q<CR>')
+	call s:nnoreicmap('','<A-B>',':TWcmd tcm n<CR>')
+	call s:nnoreicmap('','<A-W>',':TWcmd tcm t<CR>')
+	call s:nnoreicmap('','<A-T>',':TWcmd tcm b<CR>')
+
+	" tab moving
+	call s:nnoreicmap('','<A-D>',':TWcmd tmv h<CR>')
+	call s:nnoreicmap('','<A-F>',':TWcmd tmv l<CR>')
+	call s:nnoreicmap('','<A-E>',':TWcmd tmv t<CR>')
+	call s:nnoreicmap('','<A-R>',':TWcmd tmv b<CR>')
+
+	" window cursor moving and managing
+	call s:nnoreicmap('','<A-s>',':TWcmd wcm h<CR>')
+	call s:nnoreicmap('','<A-f>',':TWcmd wcm j<CR>')
+	call s:nnoreicmap('','<A-d>',':TWcmd wcm k<CR>')
+	call s:nnoreicmap('','<A-g>',':TWcmd wcm l<CR>')
+	call s:nnoreicmap('','<A-q>',':TWcmd wcm p<CR>')
+	call s:nnoreicmap('','<A-c>',':TWcmd wcm q<CR>')
+	call s:nnoreicmap('','<A-b>',':vnew<CR>')
+	call s:nnoreicmap('','<A-v>',':TWcmd wcm v<CR>')
+	call s:nnoreicmap('','<A-x>',':TWcmd wcm m<CR>')
+
+	" window moving
+	call s:nnoreicmap('','<A-w>',':TWcmd wmv h<CR>')
+	call s:nnoreicmap('','<A-t>',':TWcmd wmv l<CR>')
+
+	" window moving between tabs
+	call s:nnoreicmap('','<A-e>',':TWcmd wmvt h<CR>')
+	call s:nnoreicmap('','<A-r>',':TWcmd wmvt l<CR>')
+endif
 ```
 
 I've define the function `s:nnoreicmap()` to map for normal, insert and command-line modes simultaneously,
