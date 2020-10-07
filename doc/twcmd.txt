@@ -187,16 +187,22 @@ and installed ![vim-fixkey](https://github.com/drmikehenry/vim-fixkey) plugin to
 ==============================================================================
 8. Changelog                                             *twcmd-changelog*
 
-1.0.0                       2014/02/27
-	- first version
-1.1.0                       2014/06/22
-	- add tab-window history stack feature
-	- update screencast
-	- update documents
-1.2.0						2014/08/08
-	- change the name to twcmd.vim
+1.3.1						2020/10/07
+	- Fix a bug when setting g:twcmd_focus_after_closing to 'none'
+
 1.3.0						2014/12/28
 	- g:twcmd_restore_prevfocus has been changed to g:twcmd_focus_after_closing
 	  which can be one of the string values, 'prev_win_curr_tab', 'prev_win_tab',or 'none'.
 	- change default focusing behavior to 'jump to the lastest window of the current tab'
 	  when a window is closed. ('prev_win_curr_tab')
+
+1.2.0						2014/08/08
+	- change the name to twcmd.vim
+
+1.1.0                       2014/06/22
+	- add tab-window history stack feature
+	- update screencast
+	- update documents
+
+1.0.0                       2014/02/27
+	- first version
