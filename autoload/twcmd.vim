@@ -198,6 +198,7 @@ fun! s:CloseTab()
 			if g:twcmd_focus_after_closing==#'prev_win_curr_tab' ||
 			\ g:twcmd_focus_after_closing==#'prev_win_tab'
 				call s:JumpToTabWin(prevtabnr, prevwinnr)
+			elseif g:twcmd_focus_after_closing==#'none'
 			else
 				echoerr 'twcmd.vim: '''.g:twcmd_focus_after_closing.''' is an undefined value for g:twcmd_focus_after_closing.'
 			endif
@@ -276,6 +277,7 @@ fun! s:CloseWin()
 			if g:twcmd_focus_after_closing==#'prev_win_curr_tab' ||
 			\ g:twcmd_focus_after_closing==#'prev_win_tab'
 				call s:JumpToTabWin(prevtabnr, prevwinnr)
+			elseif g:twcmd_focus_after_closing==#'none'
 			else
 				echoerr 'twcmd.vim: '''.g:twcmd_focus_after_closing.''' is an undefined value for g:twcmd_focus_after_closing.'
 			endif
@@ -301,6 +303,7 @@ fun! s:CloseWin()
 				endif
 			elseif g:twcmd_focus_after_closing==#'prev_win_tab'
 				call s:JumpToTabWin(prevtabnr, prevwinnr)
+			elseif g:twcmd_focus_after_closing==#'none'
 			else
 				echoerr 'twcmd.vim: '''.g:twcmd_focus_after_closing.''' is an undefined value for g:twcmd_focus_after_closing.'
 			endif
