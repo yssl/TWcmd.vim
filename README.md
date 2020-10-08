@@ -1,13 +1,17 @@
 # TWcmd.vim
 
-TWcmd.vim is a set of useful commands for moving & managing tabs and windows in vim.
+TWcmd.vim is a set of useful commands for navigating / moving / managing windows and tabs in vim.  
+It also provides the ability to jump to the last focused window when closing a window or tab, by managing the *tab-window history stack*.
 
-- Move a tab / window
+
+- Navigating windows and tabs
+- Moving the current window to other windows' positions, or even to other tabs
+- Moving the current tab to other tabs' positions
 ![twmove2_opt](https://cloud.githubusercontent.com/assets/5915359/3844245/89017712-1e47-11e4-9f19-089d56a035d8.gif)
 
-- Stack visited windows and recover them when closing
-<!--![twhistory_opt](https://cloud.githubusercontent.com/assets/5915359/3351949/c7c4c2d6-fa27-11e3-816a-f448657a5dba.gif)-->
-	- The cursor can jumps to the lastest window of the current tab or to the latest [tab, window] pair in history when closing a window. (see `:help g:twcmd_focus_after_closing` for more details.)
+- Stacking visited windows and recovering them when closing (by using `:TWcmd tcm q` or `:TWcmd wcm q`)
+- Jumping to the last focused window when closing a window or tab (by using `:TWcmd tcm q` or `:TWcmd wcm q`)
+![twhistory_opt](https://cloud.githubusercontent.com/assets/5915359/3351949/c7c4c2d6-fa27-11e3-816a-f448657a5dba.gif)
 
 ## Installation
 
@@ -200,8 +204,9 @@ TWcmd.vim does not provide default key mappings to keep your key mappings clean.
 Instead, I suggest convenient one what I'm using now.
 You can add them to your .vimrc and modify them as you want.
 
-I'm currently using the right alt key shortcuts because I used the left alt key too often and felt pain in my thumb.
-If you are experiencing similar symptoms, I recommend using the right alt key shortcuts with `let g:left_alt = 0` as in the .vimrc setting below.
+For your information, I'm currently using right-alt shortcuts because I used left-alt shortcuts too much and felt pain in my left thumb.
+If you are experiencing similar symptoms, I would recommend using the right-alt shortcuts using the following .vimrc setting.
+If you just want to use left-alt shortcuts, you can just set `let g:left_alt = 1` in the following code.
 
 ```
 function! s:nnoreicmap(option, shortcut, command)
