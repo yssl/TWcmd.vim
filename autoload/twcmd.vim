@@ -345,21 +345,43 @@ fun! s:MoveWin(winnr1, winnr2)
 	let bufnr1 = winbufnr(a:winnr1)
 	let view1 = winsaveview()
 	"mkview! 0
+	let haslcd1 = haslocaldir()
+	let pwd1 = getcwd()
 
 	exec a:winnr2.'wincmd w'
 	let bufnr2 = winbufnr(a:winnr2)
 	let view2 = winsaveview()
 	"mkview! 1
+	let haslcd2 = haslocaldir()
+	let pwd2 = getcwd()
 
+	"""""""""""""""""""""""
+	" in winnr2
 	execute 'buffer'.bufnr1
 	call winrestview(view1)
 	"loadview 0
 
+	if haslcd1
+		exec 'lcd '.pwd1
+	else
+		exec 'cd'.pwd1
+	endif
+
 	wincmd p
+
+	"""""""""""""""""""""""
+	" in winnr2
 	exec 'buffer'.bufnr2
 	call winrestview(view2)
 	"loadview 1
 
+	if haslcd2
+		exec 'lcd '.pwd2
+	else
+		exec 'cd'.pwd2
+	endif
+
+	"""""""""""""""""""""""
 	wincmd p
 endfun
 
@@ -390,6 +412,8 @@ fun! s:MoveWinBtwnTabs(tabnr1, winnr1, tabnr2)
 	endif
 
 	exec 'tabnext' a:tabnr1
+	"""""""""""""""""""""""
+	" in tabnr1
 	exec a:winnr1.'wincmd w'
 	let bufnr1 = winbufnr(a:winnr1)
 	if a:tabnr1<a:tabnr2 && winnr('$')==1
@@ -397,10 +421,15 @@ fun! s:MoveWinBtwnTabs(tabnr1, winnr1, tabnr2)
 	else
 		let tabnr2 = a:tabnr2
 	endif
+
+	let haslcd1 = haslocaldir()
+	let pwd1 = getcwd()
+
 	close
 
 	exec 'tabnext' tabnr2
-
+	"""""""""""""""""""""""
+	" in tabnr2
 	let bufnr = bufnr('%')
 	let bufname = bufname(bufnr)
 	let buftype = getbufvar(bufnr, '&buftype')
@@ -413,6 +442,12 @@ fun! s:MoveWinBtwnTabs(tabnr1, winnr1, tabnr2)
 	endif
 
 	exec 'buffer' bufnr1
+
+	if haslcd1
+		exec 'lcd '.pwd1
+	else
+		exec 'cd'.pwd1
+	endif
 endfun
 
 """"""""""""""""""""""""""""""""""""""""
